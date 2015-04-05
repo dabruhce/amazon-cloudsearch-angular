@@ -4,7 +4,29 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>
+<body ng-app="angularCloudSearchDemo">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="app.js"></script>
 
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+<div class='container-fluid' ng-controller="TypeaheadCtrl">
+
+
+    <h4>Asynchronous results</h4>
+    <pre>Model: {{asyncSelected | json}}</pre>
+    <input type="text" ng-model="asyncSelected"
+           placeholder="Locations loaded via $http"
+           typeahead-wait-ms="500"
+           typeahead="suggest as suggest.suggestion for suggest in updateSuggestions($viewValue) | filter:{suggestion:$viewValue}"
+           typeahead-loading="loadingLocations"
+           typeahead-min-length="3"
+           typeahead-on-select="searchSuggestions($item)"
+           class="form-control">
+    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
+    <div><pre>result: {{listOfItems | json}}</pre></div>
+</div>
 </body>
 </html>
